@@ -55,5 +55,5 @@ RECUERDA QUE NUNCA SE TRABAJA SOBRE MAIN, DEBES CREAR TU RAMA DESDE DEVELOP‚ùó‚ù
 </div>
 
 <div align="center">
-  <img src=".github/us.jpg" alt="VORTEX Logo" width="500">
+  <img src=".github/us.jpg" alt="VORTEX Logo" width="300">
 </div>
