@@ -16,3 +16,40 @@ Nuestra filosofía es simple: <br>
 Nunca olvides que cada línea de código que escribas y cada archivo que compartas contribuyen a algo más grande que tú mismo 🤟.<br>
 
 ## Tu viaje con VORTEX🚀⭐
+
+RECUERDA QUE NUNCA SE TRABAJA SOBRE MAIN, DEBES CREAR TU RAMA DESDE DEVELOP❗❗❗❗❗❗❗
+
+### 1. Crea tu rama desde DEVELOP💡
+- `git pull`: Jala todos los cambios que tiene una rama y los actualiza en tu computadora
+- `git check out –b “New_branch_name”`: Crea nueva rama y se pasa a esa rama
+  - `git check out “Existing_branch_name”`: Te cambias a otra rama
+
+### 2. Trabajas desde tu rama🌲
+- `git pull`: Jalas todos los cambios si es que no los tenías
+- `git add .`: Se selecciona todos los cambios que se hicieron
+- `git commit –m “Mensaje Descriptivo”`: Se le pone un mensaje a esos cambios
+- `git push`: Se empujan/suben esos mensajes al repositorio
+
+### 3. Haces MERGE en deevelop💻
+- `git checkout develop`: Nos movemos a develop
+- `git pull`: Actualizamos develop
+- `git merge “Nombre_rama”`: Junta los cambios de tu rama con develop
+
+### 4. Repites el paso 1✉️
+
+## Comandos Básicos de Git🤸‍♀️🤸‍♂️🤸
+
+- `git branch` - Ver las ramas existentes.
+- `git checkout` - Cambiar a una rama específica.
+- `git status` - Mostrar el estado de los cambios.
+- `git pull` - Actualizar tu repositorio local con los cambios remotos.
+- `git push` - Enviar tus cambios al repositorio remoto.
+- `git add .` - Añadir cambios al área de preparación.
+- `git fetch` - Obtener cambios remotos (sin fusionarlos).
+- `git commit -m` - Hacer un commit con un mensaje descriptivo.
+- `git checkout -b` - Crear y cambiar a una nueva rama.
+- `git rebase` - Reorganizar commits en una rama.
+<br>
+<div align="center">
+  <p>¡Gracias por unirte al emocionante viaje de VORTEX!<br>Estamos ansiosos por ver tus contribuciones brillar.</p>
+</div>
