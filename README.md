@@ -53,3 +53,7 @@ RECUERDA QUE NUNCA SE TRABAJA SOBRE MAIN, DEBES CREAR TU RAMA DESDE DEVELOP❗�
 <div align="center">
   <p>¡Gracias por unirte al emocionante viaje de VORTEX!<br>Estamos ansiosos por ver tus contribuciones brillar.</p>
 </div>
+
+<div align="center">
+  <img src=".github/us.jpg" alt="VORTEX Logo" width="500">
+</div>
