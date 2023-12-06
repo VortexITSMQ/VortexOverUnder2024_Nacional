@@ -27,13 +27,16 @@ RECUERDA QUE NUNCA SE TRABAJA SOBRE MAIN, DEBES CREAR TU RAMA DESDE DEVELOP❗�
 ### 2. Trabajas desde tu rama🌲
 - `git pull`: Jalas todos los cambios si es que no los tenías
 - `git add .`: Se selecciona todos los cambios que se hicieron
-- `git commit –m “Mensaje Descriptivo”`: Se le pone un mensaje a esos cambios
-- `git push`: Se empujan/suben esos mensajes al repositorio
+- `git commit –m “Mensaje Descriptivo”`: Se le pone un mensaje/titulo a esos cambios
+- `git push`: Se empujan/suben esos mensajes/titulos y cambios al repositorio
 
 ### 3. Haces MERGE en DEVELOP💻
 - `git checkout develop`: Nos movemos a develop
 - `git pull`: Actualizamos develop
 - `git merge “Nombre_rama”`: Junta los cambios de tu rama con develop
+- `git add .`: Se selecciona todos los cambios que se hicieron
+- `git commit –m “Mensaje Descriptivo”`: Se le pone un mensaje/titulo que diga algo como "merge with [tu rama]"
+- `git push`: Se empujan/suben esos mensajes y cambios al repositorio
 
 ### 4. Repites el paso 1✉️
 
