@@ -2,7 +2,6 @@
 #include "constants.h"
 using namespace vex;
 
-
 // Cerebelo
 brain Brain;
 
@@ -10,28 +9,72 @@ brain Brain;
 controller Controller1 = controller(primary);
 
 // Chassis
+//Motor rojo  18:1
+//Motor verde 36:1
+//Motor azul   6:1
 inertial DrivetrainInertial = inertial(PORT13);
-motor RightDriveA = motor(PORT4, ratio36_1, false);
-motor RightDriveB = motor(PORT3, ratio36_1, false);
-motor LeftDriveA = motor(PORT1, ratio36_1, true);
-motor LeftDriveB = motor(PORT2, ratio36_1, true);
+motor RightDriveA = motor(PORT4, ratio18_1, true);
+motor RightDriveB = motor(PORT3, ratio18_1, true);
+motor LeftDriveA = motor(PORT1, ratio18_1, false);
+motor LeftDriveB = motor(PORT2, ratio18_1, false);
 motor_group LeftDriveSmart = motor_group(LeftDriveA, LeftDriveB);
 motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
-/*smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
-  WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);*/
+smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
+  WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
 
 bool RemoteControlCodeEnabled = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
-void vexcodeInit(void) {
-  // Nothing to initialize
+
+/*--------------------------------------------------------------------------*/
+/*                   rc_auto_loop_function_Controller1()                    */
+/*                                                                          */
+/*               Aquí se junta todas las funciones de control               */
+/*               se repetiran una vez el control se inicialice              */
+/*--------------------------------------------------------------------------*/
+int rc_auto_loop_function_Controller1() {
+  //Funciones de botones y sistemas
+  //..............................
+  //..............................
+  while(true) {
+    chassis_control();
+  }
+    
+  wait(20, msec);
+  return 0;
 }
 
+/*--------------------------------------------------------------------------*/
+/*                               vexcodeInit()                              */
+/*                                                                          */
+/*               Aquí solamente se calibra el sensor inercial               */
+/*--------------------------------------------------------------------------*/
+void vexcodeInit( void ) {
+  wait(200, msec);
+  DrivetrainInertial.calibrate();
+  while (DrivetrainInertial.isCalibrating()) {
+    wait(25, msec);
+  }
+  wait(50, msec);
+}
+
+
+/*--------------------------------------------------------------------------*/
+/*                             chassis_control()                            */
+/*                                                                          */
+/*       Aquí se especifica la configuración de como controlar el robot     */
+/*                 SI SE QUIERE CAMBIAR LA VELOCIDAD DEL ROBOT              */
+/*                     se tiene que cambiar el cálculo de:                  */
+/*           drivetrainLeftSideSpeed y de drivetrainRightSideSpeed          */
+/*--------------------------------------------------------------------------*/
 void chassis_control(){
-  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()))/2.0;
-  int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()))/2.0;
+  //int drivetrainLeftSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()))/2.0;
+  //int drivetrainRightSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()))/2.0;
+
+  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() - (Controller1.Axis1.position()));
+  int drivetrainRightSideSpeed = (Controller1.Axis3.position() + (Controller1.Axis1.position()));
   
   if (drivetrainLeftSideSpeed < JOYSTICK_DEADBAND && drivetrainLeftSideSpeed > -JOYSTICK_DEADBAND) {
     if (DrivetrainLNeedsToBeStopped_Controller1) {

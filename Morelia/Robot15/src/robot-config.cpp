@@ -32,10 +32,10 @@ pneumatics IndexerLeft = pneumatics(Brain.ThreeWirePort.B);
 
 // Chassis
 inertial DrivetrainInertial = inertial(PORT13);
-motor RightDriveA = motor(PORT1, ratio18_1, false);//false
-motor RightDriveB = motor(PORT2, ratio18_1, false);//false
-motor LeftDriveA = motor(PORT12, ratio18_1, true); //11
-motor LeftDriveB = motor(PORT11, ratio18_1, true); //12
+motor RightDriveA = motor(PORT4, ratio18_1, false);//false
+motor RightDriveB = motor(PORT3, ratio18_1, false);//false
+motor LeftDriveA = motor(PORT1, ratio18_1, true); //11
+motor LeftDriveB = motor(PORT2, ratio18_1, true); //12
 motor_group LeftDriveSmart = motor_group(LeftDriveA, LeftDriveB);
 motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
