@@ -36,6 +36,18 @@ void pre_auton(void) {
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
+/*---------------------------------------------------------------------------*/
+/*                               display_info                                */
+/*                                                                           */
+/*             Aquí solo imprimimos algo, ya sea en la consola               */
+/*                                  o en cerebro                             */
+/*   Es buena para imprimir valores, como grados, medidas, posiciones, etc   */
+/*---------------------------------------------------------------------------*/
+void display_info(){
+  std::cout << "Hola! Estoy en la consola" << std::endl;
+  Brain.Screen.print("Hola! Estoy en el cerebro");
+}
+
 
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -65,24 +77,9 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  while (1) {
-    // This is the main execution loop for the user control program.
-    // Each time through the loop your program should update motor + servo
-    // values based on feedback from the joysticks.
-
-    // ........................................................................
-    // Insert user code here. This is where you use the joystick values to
-    // update your motors, etc.
-    // ........................................................................
-
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
-  }
+  rc_auto_loop_function_Controller1();
 }
 
-//
-// Main will set up the competition functions and callbacks.
-//
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
