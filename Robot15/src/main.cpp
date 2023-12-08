@@ -16,6 +16,7 @@
 
 
 #include "vex.h"
+#include "PIDchassis.h"
 #include "bits/stdc++.h" //Librerias esenciales de C++
 using namespace vex;
 competition Competition;
@@ -56,6 +57,9 @@ void display_info(){
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
+
+  task billWithTheScienceFi(drivePID);
+  enableDrivePID = true;
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -71,6 +75,8 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
+  enableDrivePID = false;
+  
   // User control code here, inside the loop
   rc_auto_loop_function_Controller1();
 }
