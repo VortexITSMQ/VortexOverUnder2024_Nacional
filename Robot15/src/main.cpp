@@ -1,9 +1,9 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
-/*    Created:      Thu Sep 26 2019                                           */
-/*    Description:  Competition Template                                      */
+/*    Author:       Vortex                                                    */
+/*    Created:      Sat Dec 09 2023                                           */
+/*    Description:  Robot 15 code                                             */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
