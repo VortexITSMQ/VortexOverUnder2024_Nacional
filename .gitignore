@@ -130,20 +130,16 @@ Robot15/Robot15.v5code
 # --------------------------------------------------------------------------
 # OUR ignores.
 # --------------------------------------------------------------------------
-# Ignorar todo el contenido de la carpeta "build" en cualquier lugar del repositorio
-build/*
-**/build/
+# Ignorar la carpeta "build" dentro de la carpeta "Robot15"
+Robot15/build/
 
-# Ignorar el archivo "compile_commands.json" en cualquier lugar del repositorio
-compile_commands.json
-**/compile_commands.json
+# Ignorar la carpeta "build" dentro de la carpeta "Robot18"
+Robot18/build/
 
-# Ignorar el archivo "makefile" en cualquier lugar del repositorio
-makefile
-**/makefile
+# Ignorar la carpeta "build" dentro de la carpeta "Morelia/Robot15"
+Morelia/Robot15/build/
 
-# Ignorar todo el contenido de la carpeta "vex" en cualquier lugar del repositorio
-vex/*
-**/vex/
+# Ignorar la carpeta "build" dentro de la carpeta "Morelia/Robot24"
+Morelia/Robot24/build/
 
 #.gitignore
