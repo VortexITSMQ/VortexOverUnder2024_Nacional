@@ -124,4 +124,26 @@ Robot15/Robot15.v5code
 **/.cache/
 **/.vscode/
 *.v5code
+
+
+
+# --------------------------------------------------------------------------
+# OUR ignores.
+# --------------------------------------------------------------------------
+# Ignorar todo el contenido de la carpeta "build" en cualquier lugar del repositorio
+build/*
+**/build/
+
+# Ignorar el archivo "compile_commands.json" en cualquier lugar del repositorio
+compile_commands.json
+**/compile_commands.json
+
+# Ignorar el archivo "makefile" en cualquier lugar del repositorio
+makefile
+**/makefile
+
+# Ignorar todo el contenido de la carpeta "vex" en cualquier lugar del repositorio
+vex/*
+**/vex/
+
 #.gitignore
