@@ -47,6 +47,7 @@ void pre_auton(void) {
 void display_info(){
   std::cout << "Hola! Estoy en la consola" << std::endl;
   Brain.Screen.print("Hola! Estoy en el cerebro");
+  //asdf
 }
 
 
