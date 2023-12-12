@@ -26,7 +26,9 @@ smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainIn
 
 // Wings 
 motor Wing = motor(PORT10, ratio18_1, true);
-pneumatics IndexerBoth = pneumatics(Brain.ThreeWirePort.A);
+pneumatics IndexerRight = pneumatics(Brain.ThreeWirePort.A);
+pneumatics IndexerLeft = pneumatics(Brain.ThreeWirePort.B);
+
 
 bool RemoteControlCodeEnabled = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
@@ -36,13 +38,15 @@ void Wings_cb(){
   //If the wings are open then we close them
   if (!WingAreOpen) {
     //Wing.spinToPosition(100, degrees, true);
-    IndexerBoth.set(true);
+    IndexerRight.set(true);
+    IndexerLeft.set(true);
     WingAreOpen = true;
   }
   //If the wings are close then we open them
   else {
     //Wing.spinToPosition(-100, degrees, true);
-    IndexerBoth.set(false);
+    IndexerRight.set(false);
+    IndexerLeft.set(false);
     WingAreOpen = false;
   }
 }
