@@ -45,7 +45,8 @@ int drivePID(){
     int LeftDriveAPosition = LeftDriveA.position(degrees);
     int LeftDriveBPosition = LeftDriveB.position(degrees);
 
-    int averagePosition((RightDriveAPosition + LeftDriveAPosition) / 2);
+    int averagePosition = (((RightDriveAPosition + RightDriveBPosition) / 2) + ((LeftDriveAPosition + LeftDriveBPosition) / 2)) / 2;
+    //int averagePosition((RightDriveAPosition + LeftDriveAPosition) / 2);
 
     error = averagePosition - desiredValue;
     derivative = error - prevError;
@@ -54,7 +55,7 @@ int drivePID(){
     double lateralMotorPower = error * kP + derivative * kD + totalError * kI;
 
 
-    int turnDiff = RightDriveAPosition - LeftDriveAPosition;
+    int turnDiff = ((RightDriveAPosition + RightDriveBPosition) / 2) - ((LeftDriveAPosition + LeftDriveBPosition) / 2);
 
     turnerror = turnDiff - turndesiredValue;
     turnderivative = turnerror - turnprevError;
