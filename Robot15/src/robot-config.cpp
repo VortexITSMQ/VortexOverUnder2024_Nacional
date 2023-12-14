@@ -14,20 +14,25 @@ controller Controller1 = controller(primary);
 //Motor rojo  18:1
 //Motor verde 36:1
 //Motor azul   6:1
-inertial DrivetrainInertial = inertial(PORT13);
-motor RightDriveA = motor(PORT4, ratio18_1, false);
-motor RightDriveB = motor(PORT3, ratio18_1, false);
+inertial DrivetrainInertial = inertial(PORT17);
+motor RightDriveA = motor(PORT10, ratio18_1, false);
+motor RightDriveB = motor(PORT20, ratio18_1, false);
 motor LeftDriveA = motor(PORT1, ratio18_1, true);
-motor LeftDriveB = motor(PORT2, ratio18_1, true);
+motor LeftDriveB = motor(PORT11, ratio18_1, true);
 motor_group LeftDriveSmart = motor_group(LeftDriveA, LeftDriveB);
 motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
 // Wings 
-motor Wing = motor(PORT10, ratio18_1, true);
+//motor Wing = motor(PORT10, ratio18_1, true);
 pneumatics IndexerRight = pneumatics(Brain.ThreeWirePort.A);
 pneumatics IndexerLeft = pneumatics(Brain.ThreeWirePort.B);
+
+// Climber
+motor ClimberLeft = motor(PORT12, ratio36_1, false);
+motor ClimberRight = motor(PORT9, ratio36_1, true);
+motor_group Climber = motor_group(ClimberLeft, ClimberRight);
 
 
 bool RemoteControlCodeEnabled = true;
@@ -51,7 +56,17 @@ void Wings_cb(){
   }
 }
 
+void Climber_fwd_cb(){
+  while (Controller1.ButtonUp.pressing())
+    Climber.spin(reverse, 90, percent);
+  Climber.stop();
+}
 
+void Climber_bwd_cb(){
+  while (Controller1.ButtonDown.pressing())
+    Climber.spin(fwd, 90, percent);
+  Climber.stop();
+}
 
 /*--------------------------------------------------------------------------*/
 /*                   rc_auto_loop_function_Controller1()                    */
@@ -66,6 +81,9 @@ int rc_auto_loop_function_Controller1() {
 
   Controller1.ButtonB.pressed(Wings_cb);
   Controller1.ButtonX.pressed(Wings_cb);
+
+  Controller1.ButtonUp.pressed(Climber_fwd_cb);
+  Controller1.ButtonDown.pressed(Climber_bwd_cb);
   while(true) {
     chassis_control();
   }
@@ -99,11 +117,11 @@ void vexcodeInit( void ) {
 /*--------------------------------------------------------------------------*/
 void chassis_control(){
   //DESCOMENTAR ESTO PARA UNA VELOCIDAD MANEJABLE MEDIO LENTA MEDIO RAPIDA
-  //int drivetrainLeftSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()))/2.0;
-  //int drivetrainRightSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()))/2.0;
+  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()))/2.0;
+  int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()))/2.0;
 
-  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (Controller1.Axis1.position()));
-  int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (Controller1.Axis1.position()));
+  //int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (Controller1.Axis1.position()));
+  //int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (Controller1.Axis1.position()));
   
   if (drivetrainLeftSideSpeed < JOYSTICK_DEADBAND && drivetrainLeftSideSpeed > -JOYSTICK_DEADBAND) {
     if (DrivetrainLNeedsToBeStopped_Controller1) {

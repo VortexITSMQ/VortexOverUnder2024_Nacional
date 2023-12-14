@@ -73,8 +73,8 @@ void chassis_control(){
   //int drivetrainLeftSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()))/2.0;
   //int drivetrainRightSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()))/2.0;
 
-  int suma1 = (Controller1.Axis3.position() - (Controller1.Axis1.position())) * 0.8;
-  int suma2 = (Controller1.Axis3.position() + (Controller1.Axis1.position())) * 0.8;
+  int suma1 = 100;
+  int suma2 = 100;
   
   int drivetrainLeftSideSpeed = (Controller1.Axis3.position() - (Controller1.Axis1.position())) * suma1;
   int drivetrainRightSideSpeed = (Controller1.Axis3.position() + (Controller1.Axis1.position())) * suma2;

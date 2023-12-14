@@ -1,7 +1,7 @@
 using namespace vex;
 
 extern brain Brain;
-
+extern inertial DrivetrainInertial;
 extern controller Controller1;
 extern smartdrive Drivetrain;
 
@@ -12,6 +12,12 @@ extern motor LeftDriveA;
 extern motor LeftDriveB;
 extern motor_group LeftDriveSmart;
 extern motor_group RightDriveSmart;
+extern smartdrive Drivetrain;
+
+//wings
+extern pneumatics IndexerLeft;
+extern pneumatics IndexerRight;
+extern motor_group Climber;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
