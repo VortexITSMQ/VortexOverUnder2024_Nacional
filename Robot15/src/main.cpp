@@ -14,9 +14,10 @@
 // Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
-
 #include "vex.h"
+#include "PIDchassis.h"
 #include "autonomus.h"
+#include "robot-config.h"
 #include "bits/stdc++.h" //Librerias esenciales de C++
 using namespace vex;
 competition Competition;
@@ -58,8 +59,12 @@ void display_info(){
 
 void autonomous(void) {
   auton();
-  //task billWithTheScienceFi(drivePID);
-  //enableDrivePID = true;
+  task billWithTheScienceFi(drivePID);
+
+  resetDriveSensors = true;
+  enableDrivePID = true;
+  desiredValue = 300;
+  turndesiredValue = 600;
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -75,7 +80,7 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
-  //enableDrivePID = false;
+  enableDrivePID = false;
   
   // User control code here, inside the loop
   rc_auto_loop_function_Controller1();

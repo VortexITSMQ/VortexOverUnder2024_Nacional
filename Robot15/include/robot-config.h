@@ -19,6 +19,9 @@ extern pneumatics IndexerLeft;
 extern pneumatics IndexerRight;
 extern motor_group Climber;
 
+// Intake
+extern motor Collector;
+
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  *
