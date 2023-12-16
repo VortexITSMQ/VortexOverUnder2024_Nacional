@@ -70,6 +70,10 @@ void autonomous(void) {
   // ..........................................................................
 }
 
+void skills(){
+ skill();
+}
+
 /*---------------------------------------------------------------------------*/
 /*                                usercontrol                                */
 /*                                                                           */
@@ -90,6 +94,7 @@ void usercontrol(void) {
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
+  //Competition.autonomous(skills);
   Competition.drivercontrol(usercontrol);
 
   // Run the pre-autonomous function.

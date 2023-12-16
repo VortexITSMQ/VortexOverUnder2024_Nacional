@@ -3,16 +3,14 @@
 
 using namespace vex;
 
+bool ThrowerIsOn = false;
+
 // A global instance of brain used for printing to the V5 brain screen
 brain Brain;
 
 controller Controller1 = controller(primary);
-/**
- * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
- *
- * This should be called at the start of your int main function.
- */
 
+//chassis
 inertial DrivetrainInertial = inertial(PORT10);
 motor RightDriveA = motor(PORT2, ratio18_1, true);
 motor RightDriveB = motor(PORT19, ratio18_1, true);
@@ -24,12 +22,35 @@ smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainIn
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
 
+//Lanzador
+motor ThrowerUp = motor(PORT3, ratio6_1, false);
+motor ThrowerDown = motor(PORT4, ratio6_1, true);
+motor_group Thrower = motor_group(ThrowerUp, ThrowerDown);
+
 bool RemoteControlCodeEnabled = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
+
+
+void Thrower_cb(){
+  if (!ThrowerIsOn){
+    Thrower.spin(fwd, 500, percent);
+    ThrowerIsOn = true;
+  }else{
+    Thrower.spin(fwd, 0, percent);
+    ThrowerIsOn = false;
+  }
+  /*
+  while(Controller1.ButtonR2.pressing()){
+    Thrower.spin(fwd, 0, percent);
+  }*/
+}
+
+
 int rc_auto_loop_function_Controller1() {
   //Funciones de botones y sistemas
+  Controller1.ButtonR2.pressed(Thrower_cb);
   while(true) {
     chassis_control();
   }

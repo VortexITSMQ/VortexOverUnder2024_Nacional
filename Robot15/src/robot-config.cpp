@@ -34,7 +34,6 @@ motor ClimberLeft = motor(PORT12, ratio36_1, false);
 motor ClimberRight = motor(PORT9, ratio36_1, true);
 motor_group Climber = motor_group(ClimberLeft, ClimberRight);
 
-
 bool RemoteControlCodeEnabled = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
