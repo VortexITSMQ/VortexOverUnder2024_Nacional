@@ -76,6 +76,8 @@ void auton()
   Drivetrain.turnToHeading(345, rotationUnits::deg, 30, rpm, true);
 }
 
+
+
 void skill()
 {
   DrivetrainInertial.calibrate();
@@ -84,29 +86,40 @@ void skill()
   }
   Drivetrain.setDriveVelocity(28, pct);
   
-  //salida del pasillo
-  Drivetrain.driveFor(fwd, 95, distanceUnits::cm);
+  /*------------------
+  * salida del pasillo
+  * ------------------*/
+  Drivetrain.driveFor(fwd, 98, distanceUnits::cm);
   Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
 
-  // llegada a la red
+  /*-----------------------------------------
+  * Se acomoda y llega a la altura de la red
+  * -----------------------------------------*/
   Drivetrain.driveFor(fwd, 45, distanceUnits::cm);
+  Drivetrain.turnToHeading(0, rotationUnits::deg, 100, rpm, true);
+  Drivetrain.driveFor(reverse, 10, distanceUnits::cm);
+  Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
 
-  // abrir alitas para que no pases los triballs
+  /*-------------------------------------------------------
+  * Abre las alitas para actuar como pared con los triballs
+  * -------------------------------------------------------*/
   IndexerLeft.set(true);
   IndexerRight.set(true);
   wait(10, seconds);
   IndexerLeft.set(false);
   IndexerRight.set(false);
 
-  // llegada al tubo
+  /*-------------------------------------------------------------------------
+  * Llega al tubo negro para acomodarse y posteriormente empujar los triballs
+  * -------------------------------------------------------------------------*/
   Drivetrain.turnToHeading(180, rotationUnits::deg, 100, rpm, true);
-  Drivetrain.driveFor(fwd, 50, distanceUnits::cm);
+  Drivetrain.driveFor(fwd, 45, distanceUnits::cm);
   Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
 
-  int i;
-  for (i=0;i<4;i++){
+  //int i;
+  for (int i=0;i<5;i++){
     // vuelta a red
-    Drivetrain.driveFor(fwd, 50, distanceUnits::cm);
+    Drivetrain.driveFor(fwd, 50, distanceUnits::cm);//50*
     Drivetrain.turnToHeading(0, rotationUnits::deg, 100, rpm, true);
     IndexerLeft.set(true);
     IndexerRight.set(true);
@@ -120,6 +133,8 @@ void skill()
     // IndexerLeft.set(false);
     // IndexerRight.set(false);
     Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
+    //IndexerLeft.set(false);
+    IndexerRight.set(false);
     Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
     Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
 
