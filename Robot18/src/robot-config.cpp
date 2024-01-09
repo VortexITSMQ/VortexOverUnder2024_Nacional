@@ -21,6 +21,10 @@ motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
+motor Collector = motor(PORT3, ratio18_1, true);
+
+limit CollectorButtonFront = limit(Brain.ThreeWirePort.A);
+limit CollectorButtonBack = limit(Brain.ThreeWirePort.B);
 
 //Lanzador
 motor ThrowerUp = motor(PORT3, ratio6_1, false);
@@ -51,6 +55,9 @@ void Thrower_cb(){
 int rc_auto_loop_function_Controller1() {
   //Funciones de botones y sistemas
   Controller1.ButtonR2.pressed(Thrower_cb);
+  CollectorButtonFront.pressed(CollectorFront);
+  CollectorButtonBack.pressed(CollectorBack);
+
   while(true) {
     chassis_control();
   }
@@ -100,4 +107,14 @@ void chassis_control(){
     RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
     RightDriveSmart.spin(forward);
   }
+}
+
+void CollectorFront(){
+  Collector.spin(fwd, 5, rpm);
+  printf("catapultswitch\n");
+}
+
+void CollectorBack(){
+  Collector.spin(rev, 5, rpm);
+  printf("catapultswitch\n");
 }
