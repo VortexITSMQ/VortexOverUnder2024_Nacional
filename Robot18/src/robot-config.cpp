@@ -4,6 +4,7 @@
 using namespace vex;
 
 bool ThrowerIsOn = false;
+bool WingAreOpen = false;
 
 // A global instance of brain used for printing to the V5 brain screen
 brain Brain;
@@ -21,28 +22,25 @@ motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
-//Collector
+//Recolector
 motor Collector = motor(PORT11, ratio18_1, true);
+//Recolector buttons
+limit CollectorButtonFront = limit(Brain.ThreeWirePort.H);
 limit CollectorButtonBack = limit(Brain.ThreeWirePort.G);
+
+//Wings
+pneumatics IndexerRight = pneumatics(Brain.ThreeWirePort.A);
+pneumatics IndexerLeft = pneumatics(Brain.ThreeWirePort.B);
 
 //Lanzador
 motor ThrowerUp = motor(PORT1, ratio6_1, false);
-motor ThrowerDown = motor(PORT11, ratio6_1, true);
+motor ThrowerDown = motor(PORT12, ratio6_1, true);
+
 motor_group Thrower = motor_group(ThrowerUp, ThrowerDown);
 
 bool RemoteControlCodeEnabled = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
-
-
-void CollectorFront(){
-  wait(0.53, seconds);
-  Collector.spin(reverse);
-}
-
-void CollectorBack(){
-  Collector.spin(forward);
-}
 
 void Thrower_cb(){
   if (!ThrowerIsOn){
@@ -52,24 +50,43 @@ void Thrower_cb(){
     Thrower.spin(fwd, 0, percent);
     ThrowerIsOn = false;
   }
-}
+} 
 
 void CollectorFront(){
-  Collector.spin(forward, 5, rpm);
+  Collector.spin(reverse);
   printf("catapultswitch\n");
 }
 
 void CollectorBack(){
-  Collector.spin(reverse, 5, rpm);
+  Collector.spin(forward);
   printf("catapultswitch\n");
 }
+
+void Wings(){
+//If the wings are open then we close them
+  if (!WingAreOpen) {
+    //Wing.spinToPosition(100, degrees, true);
+    IndexerRight.set(true);
+    IndexerLeft.set(true);
+    WingAreOpen = true;
+  }
+  //If the wings are close then we open them
+  else {
+    //Wing.spinToPosition(-100, degrees, true);
+    IndexerRight.set(false);
+    IndexerLeft.set(false);
+    WingAreOpen = false;
+  }
+} 
 
 int rc_auto_loop_function_Controller1() {
   //Funciones de botones y sistemas
   Controller1.ButtonR2.pressed(Thrower_cb);
-  // CollectorButtonFront.pressed(CollectorFront);
+  CollectorButtonFront.pressed(CollectorFront);
   CollectorButtonBack.pressed(CollectorBack);
-  CollectorButtonBack.released(CollectorFront);
+
+  Controller1.ButtonB.pressed(Wings);
+  Controller1.ButtonX.pressed(Wings);
 
   while(true) {
     chassis_control();
