@@ -15,20 +15,19 @@ inertial DrivetrainInertial = inertial(PORT10);
 motor RightDriveA = motor(PORT2, ratio18_1, true);
 motor RightDriveB = motor(PORT19, ratio18_1, true);
 motor LeftDriveA = motor(PORT1, ratio18_1, false);
-motor LeftDriveB = motor(PORT11, ratio18_1, false);
+motor LeftDriveB = motor(PORT10, ratio18_1, false);
 motor_group LeftDriveSmart = motor_group(LeftDriveA, LeftDriveB);
 motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
-motor Collector = motor(PORT3, ratio18_1, true);
-
-limit CollectorButtonFront = limit(Brain.ThreeWirePort.A);
-limit CollectorButtonBack = limit(Brain.ThreeWirePort.B);
+//Collector
+motor Collector = motor(PORT11, ratio18_1, true);
+limit CollectorButtonBack = limit(Brain.ThreeWirePort.G);
 
 //Lanzador
-motor ThrowerUp = motor(PORT3, ratio6_1, false);
-motor ThrowerDown = motor(PORT4, ratio6_1, true);
+motor ThrowerUp = motor(PORT1, ratio6_1, false);
+motor ThrowerDown = motor(PORT11, ratio6_1, true);
 motor_group Thrower = motor_group(ThrowerUp, ThrowerDown);
 
 bool RemoteControlCodeEnabled = true;
@@ -36,6 +35,14 @@ bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
 
+void CollectorFront(){
+  wait(0.53, seconds);
+  Collector.spin(reverse);
+}
+
+void CollectorBack(){
+  Collector.spin(forward);
+}
 
 void Thrower_cb(){
   if (!ThrowerIsOn){
@@ -45,18 +52,15 @@ void Thrower_cb(){
     Thrower.spin(fwd, 0, percent);
     ThrowerIsOn = false;
   }
-  /*
-  while(Controller1.ButtonR2.pressing()){
-    Thrower.spin(fwd, 0, percent);
-  }*/
 }
 
 
 int rc_auto_loop_function_Controller1() {
   //Funciones de botones y sistemas
   Controller1.ButtonR2.pressed(Thrower_cb);
-  CollectorButtonFront.pressed(CollectorFront);
+  // CollectorButtonFront.pressed(CollectorFront);
   CollectorButtonBack.pressed(CollectorBack);
+  CollectorButtonBack.released(CollectorFront);
 
   while(true) {
     chassis_control();
@@ -109,12 +113,3 @@ void chassis_control(){
   }
 }
 
-void CollectorFront(){
-  Collector.spin(fwd, 5, rpm);
-  printf("catapultswitch\n");
-}
-
-void CollectorBack(){
-  Collector.spin(rev, 5, rpm);
-  printf("catapultswitch\n");
-}
