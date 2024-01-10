@@ -54,6 +54,15 @@ void Thrower_cb(){
   }
 }
 
+void CollectorFront(){
+  Collector.spin(forward, 5, rpm);
+  printf("catapultswitch\n");
+}
+
+void CollectorBack(){
+  Collector.spin(reverse, 5, rpm);
+  printf("catapultswitch\n");
+}
 
 int rc_auto_loop_function_Controller1() {
   //Funciones de botones y sistemas
