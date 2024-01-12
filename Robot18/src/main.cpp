@@ -13,6 +13,9 @@
 #include "vex.h"
 #include "bits/stdc++.h"
 
+#include "autonomus.h"
+#include "robot-config.h"
+
 using namespace vex;
 
 // A global instance of competition
@@ -62,6 +65,7 @@ void display_info(){
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
+  auton();
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -84,7 +88,7 @@ void usercontrol(void) {
 
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(autonomous);
+  Competition.autonomous(auton);
   Competition.drivercontrol(usercontrol);
 
   // Run the pre-autonomous function.

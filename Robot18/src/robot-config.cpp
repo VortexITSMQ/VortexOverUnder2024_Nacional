@@ -13,18 +13,18 @@ brain Brain;
 controller Controller1 = controller(primary);
 
 //chassis
-inertial DrivetrainInertial = inertial(PORT10);
-motor RightDriveA = motor(PORT2, ratio18_1, true);
-motor RightDriveB = motor(PORT19, ratio18_1, true);
-motor LeftDriveA = motor(PORT1, ratio18_1, false);
-motor LeftDriveB = motor(PORT10, ratio18_1, false);
+inertial DrivetrainInertial = inertial(PORT15);
+motor RightDriveA = motor(PORT10, ratio18_1, false);
+motor RightDriveB = motor(PORT20, ratio18_1, false);
+motor LeftDriveA = motor(PORT1, ratio18_1, true);
+motor LeftDriveB = motor(PORT12, ratio18_1, true);
 motor_group LeftDriveSmart = motor_group(LeftDriveA, LeftDriveB);
 motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
 //Recolector
-motor Collector = motor(PORT11, ratio18_1, true);
+motor Collector = motor(PORT14, ratio18_1, true);
 //Recolector buttons
 limit CollectorButtonBack = limit(Brain.ThreeWirePort.H);
 limit CollectorButtonFront = limit(Brain.ThreeWirePort.G);
@@ -33,9 +33,9 @@ limit CollectorButtonFront = limit(Brain.ThreeWirePort.G);
 pneumatics IndexerRight = pneumatics(Brain.ThreeWirePort.A);
 pneumatics IndexerLeft = pneumatics(Brain.ThreeWirePort.B);
 
-//Lanzador
-motor ThrowerUp = motor(PORT1, ratio6_1, false);
-motor ThrowerDown = motor(PORT12, ratio6_1, true);
+//Thrower
+motor ThrowerUp = motor(PORT8, ratio6_1, false);
+motor ThrowerDown = motor(PORT9, ratio6_1, true);
 
 motor_group Thrower = motor_group(ThrowerUp, ThrowerDown);
 
@@ -64,7 +64,7 @@ void CollectorBack(){
 }
 
 void CollectorFront(){
-  Collector.spin(forward);//El que sube
+  Collector.spin(forward, 70, percent);//El que sube
   printf("CollectorFront\n");
 }
 
@@ -78,7 +78,6 @@ void Collector_cb(){
     CollectorIsOn = true;
     CollectorBack();
     printf("Collector goes down\n");
-
   }
 }
 
