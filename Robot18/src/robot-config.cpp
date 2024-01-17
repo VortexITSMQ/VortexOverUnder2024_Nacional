@@ -6,6 +6,7 @@ using namespace vex;
 bool ThrowerIsOn = false;
 bool WingAreOpen = false;
 bool CollectorIsOn = true;
+int CollectorCont = 0;
 
 // A global instance of brain used for printing to the V5 brain screen
 brain Brain;
@@ -30,8 +31,8 @@ limit CollectorButtonBack = limit(Brain.ThreeWirePort.H);
 limit CollectorButtonFront = limit(Brain.ThreeWirePort.G);
 
 //Wings
-pneumatics IndexerRight = pneumatics(Brain.ThreeWirePort.A);
-pneumatics IndexerLeft = pneumatics(Brain.ThreeWirePort.B);
+pneumatics IndexerRight = pneumatics(Brain.ThreeWirePort.E);
+pneumatics IndexerLeft = pneumatics(Brain.ThreeWirePort.F);
 
 //Thrower
 motor ThrowerUp = motor(PORT8, ratio6_1, false);
@@ -60,6 +61,7 @@ void CollectorBack(){
   else{
     Collector.spin(reverse, 20, percent);//el que baja
     printf("CollectorBack\n");
+    CollectorCont ++;
   }
 }
 

@@ -9,45 +9,74 @@ using namespace vex;
 extern brain Brain;
 
 //--------- Main auton functions ---------//
-/*void auton()
-{
-    //Complete route of ROBOT 18
-    CollectorButtonBack.pressed(CollectorBack);
-    CollectorButtonFront.pressed(CollectorFront);
-
-    DrivetrainInertial.calibrate();
-    Drivetrain.setDriveVelocity(25, pct);
-
-//Levatar el recolector y detenerlo
-    CollectorFront();
-    CollectorIsOn = false;
-
-//avanza, gira, retrocede
-    Drivetrain.driveFor(fwd, 40, distanceUnits::cm);
-    Drivetrain.turnToHeading(-48, rotationUnits::deg, 50, rpm, true);
-    Drivetrain.driveFor(reverse, 45, distanceUnits::cm);
-
-//baja el recolector y Levanta el triball
-    CollectorIsOn = true;
-    CollectorBack();
-    wait(2.2, sec);
-    Collector.stop(hold);
-
-//avanza, retrocede, da vuelta
-    Drivetrain.driveFor(fwd, 30, distanceUnits::cm);
-    Drivetrain.turnToHeading(0, rotationUnits::deg, 50, rpm, true);
-
-//Lanzador poquito, recolector arriba
-    Thrower.spin(fwd, 20, percent);
-    CollectorFront();
-    CollectorIsOn = false;
-    wait(3, sec);
-    Thrower.stop(hold);
-//
-
-}*/
 
 void auton(){
+    CollectorButtonBack.pressed(CollectorBack);
+    CollectorButtonFront.pressed(CollectorFront);
+    Drivetrain.setDriveVelocity(30, rpm);
+
+    CollectorFront();
+    CollectorIsOn = false;
+
+//se posiciona en la esquina
+    Drivetrain.driveFor(fwd, 40, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(45, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(reverse, 40, distanceUnits::cm); //Now in triball position
+    wait(10, msec);
+
+//agarra el triball
+    CollectorIsOn = true;
+    CollectorBack();
+    while (CollectorCont < 2){
+        wait(10, msec); 
+    }
+    
+    CollectorFront();
+    CollectorIsOn = false;
+
+//abanza y se posiciona 
+    Drivetrain.driveFor(fwd, 80, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(0, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(fwd, 20, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(-90, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(fwd, 10, distanceUnits::cm);
+    wait(10, msec);
+
+//acciona lanzador
+    Thrower.spin(fwd, 100, percent);
+    wait(3, sec);
+    Thrower.stop(hold);
+
+//mete triball
+    Drivetrain.setDriveVelocity(100, rpm);
+    Drivetrain.driveFor(fwd, 30, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.driveFor(reverse, 25, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.driveFor(fwd, 35, distanceUnits::cm);
+    wait(10, msec);
+
+//se posiciona para tocar el tubo
+    Drivetrain.setDriveVelocity(30, rpm);
+    Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(0, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(-45, deg, 30, rpm);
+    wait(10, msec);
+    Collector.spin(reverse, 20, percent);
+}
+
+/*void auton(){
+    
   // Collect triball
     CollectorButtonBack.released(CollectorBack);
     CollectorButtonFront.pressed(CollectorFront);
@@ -55,39 +84,10 @@ void auton(){
 
     CollectorFront();
     CollectorIsOn = false;
-    AutonCollector = true;
-
-    /*Drivetrain.driveFor(fwd, 40, distanceUnits::cm);
-    wait(10, msec);
-    Drivetrain.turnToHeading(-45, deg, 30, rpm);
-    wait(10, msec);
-    Drivetrain.driveFor(reverse, 40, distanceUnits::cm); //Now in triball position
-    wait(10, msec);
-    CollectorIsOn = true;
-    CollectorBack();
-
-    if(CollectorCont > 1){
-        std::cout<<CollectorCont<<std::endl;
-        Collector.stop(hold);
-        wait(0.1, sec);
-        Collector.spinFor(reverse, 10, deg); 
-        Collector.stop(hold);
-        }*/
-    //Collector.spinTo(20, deg);
-    /*Drivetrain.driveFor(fwd, 60, distanceUnits::cm);
-    wait(10, msec);
-    Drivetrain.turnToHeading(-65, deg, 30, rpm);
-    wait(10, msec);
-    Thrower.spin(fwd, 20, percent);
-    wait(1, sec);
-    CollectorFront();
-    CollectorIsOn = false;
-    wait(2, sec);
-    Thrower.spin(fwd, 0, percent);*/
 
     // Complete autonomous, no win point
     // Start to triball position
-    /*Drivetrain.driveFor(fwd, 40, distanceUnits::cm);
+    Drivetrain.driveFor(fwd, 40, distanceUnits::cm);
     wait(10, msec);
     Drivetrain.turnToHeading(-45, deg, 30, rpm);
     wait(10, msec);
@@ -120,19 +120,8 @@ void auton(){
     Drivetrain.driveFor(reverse, 7, distanceUnits::cm); //Now in triball position
     wait(10, msec);
     Collector.spinTo(-100, deg);
-    Collector.stop(coast);*/
-
-    //std:: cout << DrivetrainInertial.heading() << std::endl;
-    /*DrivetrainInertial.resetHeading();
-    wait(20, msec);
-    Drivetrain.turnToHeading(90, deg, 30, rpm);
-    std:: cout << DrivetrainInertial.heading() << std::endl;
-    DrivetrainInertial.resetHeading();
-    wait(20, msec);
-    Drivetrain.turnToHeading(90, deg, 30, rpm);
-    std:: cout << DrivetrainInertial.heading() << std::endl;
-    wait(20, msec);*/
-}
+    Collector.stop(coast);
+}*/
 
 void move_to_coordinate(double target_x, double target_y, double target_heading)
 {

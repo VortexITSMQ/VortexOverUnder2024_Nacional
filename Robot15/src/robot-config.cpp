@@ -14,7 +14,7 @@ controller Controller1 = controller(primary);
 //Motor rojo  18:1
 //Motor verde 36:1
 //Motor azul   6:1
-inertial DrivetrainInertial = inertial(PORT17);
+inertial DrivetrainInertial = inertial(PORT16);
 motor RightDriveA = motor(PORT10, ratio18_1, false);
 motor RightDriveB = motor(PORT20, ratio18_1, false);
 motor LeftDriveA = motor(PORT1, ratio18_1, true);
@@ -116,11 +116,9 @@ void vexcodeInit( void ) {
 /*--------------------------------------------------------------------------*/
 void chassis_control(){
   //DESCOMENTAR ESTO PARA UNA VELOCIDAD MANEJABLE MEDIO LENTA MEDIO RAPIDA
-  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()))/2.0;
-  int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()))/2.0;
-
-  //int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (Controller1.Axis1.position()));
-  //int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (Controller1.Axis1.position()));
+  
+  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (Controller1.Axis1.position()*0.6));
+  int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (Controller1.Axis1.position())*0.6);
   
   if (drivetrainLeftSideSpeed < JOYSTICK_DEADBAND && drivetrainLeftSideSpeed > -JOYSTICK_DEADBAND) {
     if (DrivetrainLNeedsToBeStopped_Controller1) {

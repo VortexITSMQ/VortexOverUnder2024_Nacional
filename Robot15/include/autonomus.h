@@ -49,7 +49,7 @@ void auton()
   /*---------------------------------
   * Se acomoda para soltar el trible
   * ---------------------------------*/
-  Drivetrain.turnToHeading(180, rotationUnits::deg, 30, rpm, true);
+  Drivetrain.turnToHeading(170, rotationUnits::deg, 30, rpm, true);
 
   /*-----------------
   * Suelta el trible

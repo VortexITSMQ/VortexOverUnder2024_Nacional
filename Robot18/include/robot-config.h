@@ -35,6 +35,8 @@ void Collector_cb();
 void CollectorFront();
 void CollectorBack();
 
+extern int CollectorCont;
+
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
