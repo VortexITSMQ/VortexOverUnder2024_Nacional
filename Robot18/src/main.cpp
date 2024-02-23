@@ -65,7 +65,7 @@ void display_info(){
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  auton();
+  skill_P();
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
@@ -88,7 +88,7 @@ void usercontrol(void) {
 
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(auton);
+  Competition.autonomous(skill_P);
   Competition.drivercontrol(usercontrol);
 
   // Run the pre-autonomous function.
