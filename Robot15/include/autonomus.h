@@ -18,6 +18,7 @@ void auton()
   /*-----------------------------
   * Vuelta para empujar el trible
   * -----------------------------*/
+  DrivetrainInertial.calibrate();
   Drivetrain.turnToHeading(-30, rotationUnits::deg, 50, rpm, true);
   IndexerRight.set(true);
   Drivetrain.turnToHeading(185, rotationUnits::deg, 80, rpm, true);
@@ -84,22 +85,31 @@ void skill()
   while (DrivetrainInertial.isCalibrating()) {
     wait(25, msec);
   }
-  Drivetrain.setDriveVelocity(28, pct);
-  
+  //Drivetrain.setDriveVelocity(28, pct);
+  Drivetrain.setDriveVelocity(40, rpm);
+  wait(10, msec);
   /*------------------
   * salida del pasillo
   * ------------------*/
   Drivetrain.driveFor(fwd, 98, distanceUnits::cm);
-  Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
+  wait(10,msec);
 
+  DrivetrainInertial.calibrate();
+
+  Drivetrain.turnToHeading(90, rotationUnits::deg, 80, rpm, true);
+  wait(10,msec);
   /*-----------------------------------------
   * Se acomoda y llega a la altura de la red
   * -----------------------------------------*/
   Drivetrain.driveFor(fwd, 45, distanceUnits::cm);
-  Drivetrain.turnToHeading(0, rotationUnits::deg, 100, rpm, true);
-  Drivetrain.driveFor(reverse, 10, distanceUnits::cm);
-  Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
+  wait(10,msec);
+  Drivetrain.turnToHeading(0, rotationUnits::deg, 80, rpm, true);
+  wait(10,msec);
 
+  Drivetrain.driveFor(reverse, 10, distanceUnits::cm);
+  wait(10,msec);
+  Drivetrain.turnToHeading(90, rotationUnits::deg, 80, rpm, true);
+  wait(10,msec);
   /*-------------------------------------------------------
   * Abre las alitas para actuar como pared con los triballs
   * -------------------------------------------------------*/
@@ -112,21 +122,28 @@ void skill()
   /*-------------------------------------------------------------------------
   * Llega al tubo negro para acomodarse y posteriormente empujar los triballs
   * -------------------------------------------------------------------------*/
-  Drivetrain.turnToHeading(180, rotationUnits::deg, 100, rpm, true);
+  Drivetrain.turnToHeading(180, rotationUnits::deg, 80, rpm, true);
+  wait(10,msec);
   Drivetrain.driveFor(fwd, 45, distanceUnits::cm);
-  Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
+  wait(10,msec);
+
+  Drivetrain.turnToHeading(90, rotationUnits::deg, 80, rpm, true);
+  wait(10,msec);
 
   //int i;
   for (int i=0;i<5;i++){
     // vuelta a red
     Drivetrain.driveFor(fwd, 50, distanceUnits::cm);//50*
-    Drivetrain.turnToHeading(0, rotationUnits::deg, 100, rpm, true);
+    Drivetrain.turnToHeading(0, rotationUnits::deg, 80, rpm, true);
+    wait(10,msec);
     IndexerLeft.set(true);
     IndexerRight.set(true);
 
     // golpe a la red
     Drivetrain.setDriveVelocity(60, pct);
+    wait(10,msec);
     Drivetrain.driveFor(fwd, 50, distanceUnits::cm);
+    wait(10,msec);
     Drivetrain.setDriveVelocity(28, pct);
 
     // regreso al tubo
@@ -135,7 +152,8 @@ void skill()
     Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
     //IndexerLeft.set(false);
     IndexerRight.set(false);
-    Drivetrain.turnToHeading(90, rotationUnits::deg, 100, rpm, true);
+    Drivetrain.turnToHeading(90, rotationUnits::deg, 80, rpm, true);
+    wait(10,msec);
     Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
 
     //esperar triballs

@@ -24,9 +24,9 @@ motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
-//Recolector
+//Collector
 motor Collector = motor(PORT14, ratio18_1, true);
-//Recolector buttons
+//Collector buttons
 limit CollectorButtonBack = limit(Brain.ThreeWirePort.H);
 limit CollectorButtonFront = limit(Brain.ThreeWirePort.G);
 
@@ -46,7 +46,7 @@ bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
 void Thrower_cb(){
   if (!ThrowerIsOn){
-    Thrower.spin(fwd, 500, percent);
+    Thrower.spin(fwd, 100, percent);
     ThrowerIsOn = true;
   }else{
     Thrower.spin(fwd, 0, percent);
@@ -59,14 +59,14 @@ void CollectorBack(){
     Collector.stop(hold);
   }
   else{
-    Collector.spin(reverse, 20, percent);//el que baja
+    Collector.spin(reverse, 20, percent);//baja
     printf("CollectorBack\n");
     CollectorCont ++;
   }
 }
 
 void CollectorFront(){
-  Collector.spin(forward, 70, percent);//El que sube
+  Collector.spin(forward, 70, percent);//sube
   printf("CollectorFront\n");
 }
 
@@ -104,11 +104,11 @@ int rc_auto_loop_function_Controller1() {
   //Funciones de botones y sistemas
   Controller1.ButtonR2.pressed(Thrower_cb);
   
-  CollectorButtonBack.pressed(CollectorBack);
-  CollectorButtonFront.pressed(CollectorFront);
+  CollectorButtonBack.pressed(CollectorBack);//arriba, baja
+  CollectorButtonFront.pressed(CollectorFront);//abajo, sube
 
-  Controller1.ButtonB.pressed(Wings);
-  Controller1.ButtonX.pressed(Wings);
+  Controller1.ButtonR1.pressed(Wings);
+  //Controller1.ButtonX.pressed(Wings);
 
   Controller1.ButtonL2.pressed(Collector_cb);
 

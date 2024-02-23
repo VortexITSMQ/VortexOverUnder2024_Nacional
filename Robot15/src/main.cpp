@@ -93,7 +93,7 @@ void usercontrol(void) {
 
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(auton);
+  Competition.autonomous(skill);
   //Competition.autonomous(skills);
   Competition.drivercontrol(usercontrol);
 

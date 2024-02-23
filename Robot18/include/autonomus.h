@@ -10,7 +10,133 @@ extern brain Brain;
 
 //--------- Main auton functions ---------//
 
-void auton(){
+void auton_WP_P(){//Empieza ya posicionado WP
+
+    CollectorButtonBack.pressed(CollectorBack);
+    CollectorButtonFront.pressed(CollectorFront);
+    Drivetrain.setDriveVelocity(30, rpm);
+
+//agarra el triball
+    CollectorIsOn = true;
+    CollectorBack();
+    while (CollectorCont < 2){
+        wait(10, msec); 
+    }
+    
+    CollectorFront();
+    CollectorIsOn = false;
+
+//abanza y se posiciona 
+    Drivetrain.driveFor(fwd, 75, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(-43, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(fwd, 23, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(-135, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(fwd, 10, distanceUnits::cm);
+    wait(10, msec);
+
+//acciona lanzador
+    Thrower.spin(fwd, 100, percent);
+    wait(3, sec);
+
+//mete triball
+    Drivetrain.setDriveVelocity(60, rpm);
+    Drivetrain.driveFor(fwd, 15, distanceUnits::cm);
+    wait(10, msec);
+    Thrower.stop(hold); 
+    Drivetrain.driveFor(reverse, 15, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.driveFor(fwd, 12, distanceUnits::cm);
+    wait(10, msec);
+
+//se posiciona para tocar el tubo
+    Drivetrain.setDriveVelocity(30, rpm);
+    //Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(-93, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(reverse, 55, distanceUnits::cm);
+    wait(10, msec);
+    //Drivetrain.turnToHeading(-45, deg, 30, rpm);
+   //wait(10, msec);
+    Collector.spinTo(-100, deg);
+    Collector.stop(coast);
+
+}
+
+void auton_10_P(){//Empieza ya posicionado lanza 10 Triballs
+     // Collect triball
+    CollectorButtonBack.pressed(CollectorBack);
+    CollectorButtonFront.pressed(CollectorFront);
+    Drivetrain.setDriveVelocity(30, rpm);
+
+    Thrower.spin(fwd, 500, percent);
+    wait(0.5,sec);
+
+    CollectorIsOn = true;
+    wait(10, msec);
+    CollectorBack();
+    while(CollectorCont <= 11){
+        wait(10, msec);}
+    CollectorIsOn = false;
+    wait(1, sec);
+    Thrower.spin(fwd, 0, percent);
+
+    Drivetrain.driveFor(fwd, 70, distanceUnits::cm); //Now in triball position
+    wait(10, msec);
+    Drivetrain.turnToHeading(-90, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.setDriveVelocity(80, rpm);
+    Drivetrain.driveFor(reverse, 30, distanceUnits::cm); //Now in triball position
+    wait(10, msec);
+    Drivetrain.setDriveVelocity(30, rpm);
+    //Drivetrain.driveFor(reverse, 10, distanceUnits::cm); //Now in triball position
+    wait(10, msec);
+    //Drivetrain.turnToHeading(135, deg, 30, rpm);
+    //wait(10, msec);
+    //Drivetrain.driveFor(reverse, 7, distanceUnits::cm); //Now in triball position
+    //wait(10, msec);
+    Collector.spinTo(-100, deg);
+    Collector.stop(coast);
+
+}
+
+void skill_P(){//Empieza ya posicionado
+    //CollectorFront();
+    wait(5, sec);
+    CollectorButtonBack.pressed(CollectorBack);
+    CollectorButtonFront.pressed(CollectorFront);
+    Drivetrain.setDriveVelocity(30, rpm);
+    
+    Thrower.spin(fwd, 100, percent);
+    CollectorIsOn = true;
+    CollectorBack();
+
+}
+void skill(){//Se posiciona solo
+    CollectorButtonBack.released(CollectorBack);
+    CollectorButtonFront.pressed(CollectorFront);
+    Drivetrain.setDriveVelocity(30, rpm);
+
+    CollectorFront();
+    CollectorIsOn = false;
+
+    Drivetrain.driveFor(fwd, 40, distanceUnits::cm);
+    wait(10, msec);
+    Drivetrain.turnToHeading(45, deg, 30, rpm);
+    wait(10, msec);
+    Drivetrain.driveFor(reverse, 40, distanceUnits::cm); //Now in triball position
+    wait(10, msec);
+    Thrower.spin(fwd, 100, percent);
+    CollectorIsOn = true;
+    CollectorBack();
+    }
+
+void auton_WP(){ //se posiciona solo, Win point
+
     CollectorButtonBack.pressed(CollectorBack);
     CollectorButtonFront.pressed(CollectorFront);
     Drivetrain.setDriveVelocity(30, rpm);
@@ -37,13 +163,13 @@ void auton(){
     CollectorIsOn = false;
 
 //abanza y se posiciona 
-    Drivetrain.driveFor(fwd, 80, distanceUnits::cm);
+    Drivetrain.driveFor(fwd, 75, distanceUnits::cm);
     wait(10, msec);
-    Drivetrain.turnToHeading(0, deg, 30, rpm);
+    Drivetrain.turnToHeading(-43, deg, 30, rpm);
     wait(10, msec);
-    Drivetrain.driveFor(fwd, 20, distanceUnits::cm);
+    Drivetrain.driveFor(fwd, 23, distanceUnits::cm);
     wait(10, msec);
-    Drivetrain.turnToHeading(-90, deg, 30, rpm);
+    Drivetrain.turnToHeading(-135, deg, 30, rpm);
     wait(10, msec);
     Drivetrain.driveFor(fwd, 10, distanceUnits::cm);
     wait(10, msec);
@@ -51,31 +177,33 @@ void auton(){
 //acciona lanzador
     Thrower.spin(fwd, 100, percent);
     wait(3, sec);
-    Thrower.stop(hold);
 
 //mete triball
-    Drivetrain.setDriveVelocity(100, rpm);
-    Drivetrain.driveFor(fwd, 30, distanceUnits::cm);
+    Drivetrain.setDriveVelocity(60, rpm);
+    Drivetrain.driveFor(fwd, 15, distanceUnits::cm);
     wait(10, msec);
-    Drivetrain.driveFor(reverse, 25, distanceUnits::cm);
+    Thrower.stop(hold); 
+    Drivetrain.driveFor(reverse, 15, distanceUnits::cm);
     wait(10, msec);
-    Drivetrain.driveFor(fwd, 35, distanceUnits::cm);
+    Drivetrain.driveFor(fwd, 12, distanceUnits::cm);
     wait(10, msec);
 
 //se posiciona para tocar el tubo
     Drivetrain.setDriveVelocity(30, rpm);
-    Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
+    //Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
+    //wait(10, msec);
+   // Drivetrain.turnToHeading(0, deg, 30, rpm);
     wait(10, msec);
-    Drivetrain.turnToHeading(0, deg, 30, rpm);
+    Drivetrain.driveFor(reverse, -93, distanceUnits::cm);
     wait(10, msec);
-    Drivetrain.driveFor(reverse, 50, distanceUnits::cm);
+    Drivetrain.turnToHeading(55, deg, 30, rpm);
     wait(10, msec);
-    Drivetrain.turnToHeading(-45, deg, 30, rpm);
-    wait(10, msec);
-    Collector.spin(reverse, 20, percent);
+    Collector.spinTo(-100, deg);
+    Collector.stop(coast);
+
 }
 
-/*void auton(){
+void auton_10(){ //Se posiciona solo, lanza 10 triballs
     
   // Collect triball
     CollectorButtonBack.released(CollectorBack);
@@ -105,23 +233,23 @@ void auton(){
     wait(1, sec);
     Thrower.spin(fwd, 0, percent);
 
-    Drivetrain.driveFor(fwd, 60, distanceUnits::cm); //Now in triball position
+    Drivetrain.driveFor(fwd, 70, distanceUnits::cm); //Now in triball position
     wait(10, msec);
     Drivetrain.turnToHeading(-90, deg, 30, rpm);
     wait(10, msec);
     Drivetrain.setDriveVelocity(80, rpm);
-    Drivetrain.driveFor(fwd, 30, distanceUnits::cm); //Now in triball position
+    Drivetrain.driveFor(reverse, 30, distanceUnits::cm); //Now in triball position
     wait(10, msec);
     Drivetrain.setDriveVelocity(30, rpm);
-    Drivetrain.driveFor(reverse, 10, distanceUnits::cm); //Now in triball position
+    //Drivetrain.driveFor(reverse, 10, distanceUnits::cm); //Now in triball position
     wait(10, msec);
-    Drivetrain.turnToHeading(45, deg, 30, rpm);
-    wait(10, msec);
-    Drivetrain.driveFor(reverse, 7, distanceUnits::cm); //Now in triball position
-    wait(10, msec);
+    //Drivetrain.turnToHeading(-45, deg, 30, rpm);
+    //wait(10, msec);
+    //Drivetrain.driveFor(reverse, 7, distanceUnits::cm); //Now in triball position
+    //wait(10, msec);
     Collector.spinTo(-100, deg);
     Collector.stop(coast);
-}*/
+}
 
 void move_to_coordinate(double target_x, double target_y, double target_heading)
 {
