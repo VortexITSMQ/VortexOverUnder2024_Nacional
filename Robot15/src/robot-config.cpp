@@ -14,13 +14,18 @@ controller Controller1 = controller(primary);
 //Motor rojo  18:1
 //Motor verde 36:1
 //Motor azul   6:1
-inertial DrivetrainInertial = inertial(PORT17);
-motor RightDriveA = motor(PORT10, ratio18_1, false);
-motor RightDriveB = motor(PORT20, ratio18_1, false);
-motor LeftDriveA = motor(PORT1, ratio18_1, true);
-motor LeftDriveB = motor(PORT11, ratio18_1, true);
-motor_group LeftDriveSmart = motor_group(LeftDriveA, LeftDriveB);
-motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB);
+inertial DrivetrainInertial = inertial(PORT11);
+motor RightDriveA = motor(PORT8, ratio36_1, true);
+motor RightDriveB = motor(PORT9, ratio36_1, true);
+motor RightDriveC = motor(PORT10, ratio36_1, true);
+
+motor LeftDriveA = motor(PORT3, ratio36_1, false);
+motor LeftDriveB = motor(PORT1, ratio36_1, false);
+motor LeftDriveC = motor(PORT7, ratio36_1, false);
+
+motor_group LeftDriveSmart = motor_group(LeftDriveA, LeftDriveB, LeftDriveC);
+motor_group RightDriveSmart = motor_group(RightDriveA, RightDriveB, RightDriveC);
+
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 
   WHEEL_TRAVEL, TRACK_WIDTH, TRACK_BASE, mm, EXT_GEAR_RATIO);
 
@@ -116,8 +121,8 @@ void vexcodeInit( void ) {
 /*--------------------------------------------------------------------------*/
 void chassis_control(){
   //DESCOMENTAR ESTO PARA UNA VELOCIDAD MANEJABLE MEDIO LENTA MEDIO RAPIDA
-  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()))/2.0;
-  int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()))/2.0;
+  int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (0.7*Controller1.Axis1.position()));
+  int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (0.7*Controller1.Axis1.position()));
 
   //int drivetrainLeftSideSpeed = (Controller1.Axis3.position() + (Controller1.Axis1.position()));
   //int drivetrainRightSideSpeed = (Controller1.Axis3.position() - (Controller1.Axis1.position()));
